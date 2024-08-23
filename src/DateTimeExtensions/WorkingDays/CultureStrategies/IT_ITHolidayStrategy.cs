@@ -94,8 +94,10 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
                 return liberationDay;
             }
         }
+        
+        //TODO: find a way to override the International Workers' Day based on the early XX century Italian country conditions
 
-        //2 June - Republic Day
+        //2 June - Republic Day, since 1946 excluded
         private static Holiday republicDay;
 
         public static Holiday RepublicDay
@@ -104,7 +106,9 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
             {
                 if (republicDay == null)
                 {
-                    republicDay = new FixedHoliday("Republic Day", 6, 2);
+                    republicDay = new YearDependantHoliday(
+                        year => year > 1946, new FixedHoliday("Republic Day", 6, 2)
+                    );
                 }
                 return republicDay;
             }
