@@ -73,7 +73,8 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
             {
                 if (saintJosephDay == null)
                 {
-                    saintJosephDay = new YearDependantHoliday(year => year < 1977, new FixedHoliday("Saint Joseph Day", 3, 19));
+                    saintJosephDay = new YearDependantHoliday(
+                        year => year < 1977, new FixedHoliday("Saint Joseph Day", 3, 19));
                 }
                 return saintJosephDay;
             }
@@ -106,6 +107,23 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
                     republicDay = new FixedHoliday("Republic Day", 6, 2);
                 }
                 return republicDay;
+            }
+        }
+        
+        //29 June - Saint Peter and Paul Feast, until 1977 excluded
+        private static Holiday saintPeterAndPaulFeast;
+
+        private static Holiday SaintPeterAndPaulFeast
+        {
+            get
+            {
+                if (saintPeterAndPaulFeast == null)
+                {
+                    saintPeterAndPaulFeast = new YearDependantHoliday(
+                        year => year < 1977, new FixedHoliday("Saint Peter and Paul Feast", 6, 29)
+                    );
+                }
+                return saintPeterAndPaulFeast;
             }
         }
     }
