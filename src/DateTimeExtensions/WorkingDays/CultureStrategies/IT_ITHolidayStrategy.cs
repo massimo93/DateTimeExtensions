@@ -34,6 +34,8 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
             this.InnerHolidays.Add(GlobalHolidays.NewYear);
             this.InnerHolidays.Add(ChristianHolidays.Epiphany);
             this.InnerHolidays.Add(ChristianHolidays.EasterMonday);
+            this.InnerHolidays.Add(AnniversaryOfTheUnificationOfItalyDayOfficiallyCelebrated);
+            this.InnerHolidays.Add(SaintJosephDay);
             this.InnerHolidays.Add(LiberationDay);
             this.InnerHolidays.Add(GlobalHolidays.InternationalWorkersDay);
             this.InnerHolidays.Add(RepublicDay);
@@ -44,18 +46,36 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
             this.InnerHolidays.Add(ChristianHolidays.StStephansDay);
         }
 
-        //2 June - Republic Day
-        private static Holiday republicDay;
+        //17 March - Anniversary of the Unificatio of Italy, officially celebrated every 50 years starting from 1961 (included)
+        private static Holiday anniversaryOfTheUnificationOfItalyDayOfficiallyCelebrated;
 
-        public static Holiday RepublicDay
+        public static Holiday AnniversaryOfTheUnificationOfItalyDayOfficiallyCelebrated
         {
             get
             {
-                if (republicDay == null)
+                if (anniversaryOfTheUnificationOfItalyDayOfficiallyCelebrated == null)
                 {
-                    republicDay = new FixedHoliday("Republic Day", 6, 2);
+                    anniversaryOfTheUnificationOfItalyDayOfficiallyCelebrated = new YearDependantHoliday(
+                        year => year >= 1961 && (year - 1961) % 50 == 0 , 
+                        new FixedHoliday("Anniversary of the Unification of Italy Day (Officially Celebrated)", 3, 17)
+                    );
                 }
-                return republicDay;
+                return anniversaryOfTheUnificationOfItalyDayOfficiallyCelebrated;
+            }
+        }
+
+        //19 March - Saint Joseph Day, until 1977 excluded
+        private static Holiday saintJosephDay;
+
+        public static Holiday SaintJosephDay
+        {
+            get
+            {
+                if (saintJosephDay == null)
+                {
+                    saintJosephDay = new YearDependantHoliday(year => year < 1977, new FixedHoliday("Saint Joseph Day", 3, 19));
+                }
+                return saintJosephDay;
             }
         }
         
@@ -71,6 +91,21 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
                     liberationDay = new FixedHoliday("Liberation Day", 4, 25);
                 }
                 return liberationDay;
+            }
+        }
+
+        //2 June - Republic Day
+        private static Holiday republicDay;
+
+        public static Holiday RepublicDay
+        {
+            get
+            {
+                if (republicDay == null)
+                {
+                    republicDay = new FixedHoliday("Republic Day", 6, 2);
+                }
+                return republicDay;
             }
         }
     }
