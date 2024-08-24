@@ -34,13 +34,15 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
             this.InnerHolidays.Add(GlobalHolidays.NewYear);
             this.InnerHolidays.Add(new YearDependantHoliday(year => year < 1978 || year > 1984, ChristianHolidays.Epiphany));
             this.InnerHolidays.Add(ChristianHolidays.EasterMonday);
+            this.InnerHolidays.Add(new YearDependantHoliday(year => year < 1977, ChristianHolidays.CorpusChristi));
+            this.InnerHolidays.Add(new YearDependantHoliday(year => year < 1977, ChristianHolidays.Ascension));
             this.InnerHolidays.Add(AnniversaryOfTheUnificationOfItalyDayOfficiallyCelebrated);
             this.InnerHolidays.Add(SaintJosephDay);
             this.InnerHolidays.Add(LiberationDay);
             this.InnerHolidays.Add(EarlyXxCenturyWorkersDay);
             this.InnerHolidays.Add(LateModernPeriodWorkersDay);
             this.InnerHolidays.Add(RepublicDay);
-            this.InnerHolidays.Add(SaintPeterAndPaulFeast);
+            this.InnerHolidays.Add(new YearDependantHoliday(year => year < 1977, ChristianHolidays.StsPeterAndPaul));
             this.InnerHolidays.Add(ChristianHolidays.Assumption);
             this.InnerHolidays.Add(ChristianHolidays.AllSaints);
             this.InnerHolidays.Add(UnityAndArmedForcesDay);
@@ -129,19 +131,6 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
             {
                 return republicDay ?? (republicDay = new YearDependantHoliday(
                     year => year > 1946, new FixedHoliday("Republic Day", 6, 2)
-                ));
-            }
-        }
-        
-        //29 June - Saint Peter and Paul Feast, until 1977 excluded
-        private static Holiday saintPeterAndPaulFeast;
-
-        public static Holiday SaintPeterAndPaulFeast
-        {
-            get
-            {
-                return saintPeterAndPaulFeast ?? (saintPeterAndPaulFeast = new YearDependantHoliday(
-                    year => year < 1977, new FixedHoliday("Saint Peter and Paul Feast", 6, 29)
                 ));
             }
         }
