@@ -32,7 +32,7 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
         public IT_ITHolidayStrategy()
         {
             this.InnerHolidays.Add(GlobalHolidays.NewYear);
-            this.InnerHolidays.Add(ChristianHolidays.Epiphany);
+            this.InnerHolidays.Add(ItalianEpiphany);
             this.InnerHolidays.Add(ChristianHolidays.EasterMonday);
             this.InnerHolidays.Add(AnniversaryOfTheUnificationOfItalyDayOfficiallyCelebrated);
             this.InnerHolidays.Add(SaintJosephDay);
@@ -47,6 +47,23 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
             this.InnerHolidays.Add(ChristianHolidays.ImaculateConception);
             this.InnerHolidays.Add(ChristianHolidays.Christmas);
             this.InnerHolidays.Add(ChristianHolidays.StStephansDay);
+        }
+        
+        //6 January - Epiphany, suppressed starting from 1978 excluded and restored in 1985 included
+        private static Holiday italianEpiphany;
+
+        private static Holiday ItalianEpiphany
+        {
+            get
+            {
+                if (italianEpiphany == null)
+                {
+                    italianEpiphany = new YearDependantHoliday(
+                        year => year < 1978 || year > 1984, new FixedHoliday("Epiphany", 1, 6)
+                    );
+                }
+                return italianEpiphany;
+            }
         }
 
         //17 March - Anniversary of the Unification of Italy, officially celebrated every 50 years starting from 1961 (included)
