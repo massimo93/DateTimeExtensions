@@ -43,6 +43,7 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
             this.InnerHolidays.Add(SaintPeterAndPaulFeast);
             this.InnerHolidays.Add(ChristianHolidays.Assumption);
             this.InnerHolidays.Add(ChristianHolidays.AllSaints);
+            this.InnerHolidays.Add(UnityAndArmedForcesDay);
             this.InnerHolidays.Add(ChristianHolidays.ImaculateConception);
             this.InnerHolidays.Add(ChristianHolidays.Christmas);
             this.InnerHolidays.Add(ChristianHolidays.StStephansDay);
@@ -165,6 +166,24 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
                     );
                 }
                 return saintPeterAndPaulFeast;
+            }
+        }
+        
+        //4 November - Italian National Unity and Armed Forces Day, until 1977 excluded
+        private static Holiday unityAndArmedForcesDay;
+
+        public static Holiday UnityAndArmedForcesDay
+        {
+            get
+            {
+                if (unityAndArmedForcesDay == null)
+                {
+                    unityAndArmedForcesDay = new YearDependantHoliday(
+                        year => year < 1977, new FixedHoliday("Unity and Armed Forces Day", 4, 11)
+                    );
+                }
+
+                return unityAndArmedForcesDay;
             }
         }
     }
