@@ -32,12 +32,12 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
         public IT_ITHolidayStrategy()
         {
             this.InnerHolidays.Add(GlobalHolidays.NewYear);
-            this.InnerHolidays.Add(ItalianEpiphany);
+            this.InnerHolidays.Add(new YearDependantHoliday(year => year < 1978 || year > 1984, ChristianHolidays.Epiphany));
             this.InnerHolidays.Add(ChristianHolidays.EasterMonday);
             this.InnerHolidays.Add(AnniversaryOfTheUnificationOfItalyDayOfficiallyCelebrated);
             this.InnerHolidays.Add(SaintJosephDay);
             this.InnerHolidays.Add(LiberationDay);
-            this.InnerHolidays.Add(EarlyXXcenturyWorkersDay);
+            this.InnerHolidays.Add(EarlyXxCenturyWorkersDay);
             this.InnerHolidays.Add(LateModernPeriodWorkersDay);
             this.InnerHolidays.Add(RepublicDay);
             this.InnerHolidays.Add(SaintPeterAndPaulFeast);
@@ -48,23 +48,6 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
             this.InnerHolidays.Add(ChristianHolidays.Christmas);
             this.InnerHolidays.Add(ChristianHolidays.StStephansDay);
         }
-        
-        //6 January - Epiphany, suppressed starting from 1978 excluded and restored in 1985 included
-        private static Holiday italianEpiphany;
-
-        private static Holiday ItalianEpiphany
-        {
-            get
-            {
-                if (italianEpiphany == null)
-                {
-                    italianEpiphany = new YearDependantHoliday(
-                        year => year < 1978 || year > 1984, new FixedHoliday("Epiphany", 1, 6)
-                    );
-                }
-                return italianEpiphany;
-            }
-        }
 
         //17 March - Anniversary of the Unification of Italy, officially celebrated every 50 years starting from 1961 (included)
         private static Holiday anniversaryOfTheUnificationOfItalyDayOfficiallyCelebrated;
@@ -73,14 +56,12 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
         {
             get
             {
-                if (anniversaryOfTheUnificationOfItalyDayOfficiallyCelebrated == null)
-                {
-                    anniversaryOfTheUnificationOfItalyDayOfficiallyCelebrated = new YearDependantHoliday(
-                        year => year >= 1961 && (year - 1961) % 50 == 0 , 
-                        new FixedHoliday("Anniversary of the Unification of Italy Day (Officially Celebrated)", 3, 17)
-                    );
-                }
-                return anniversaryOfTheUnificationOfItalyDayOfficiallyCelebrated;
+                return anniversaryOfTheUnificationOfItalyDayOfficiallyCelebrated ??
+                       (anniversaryOfTheUnificationOfItalyDayOfficiallyCelebrated = new YearDependantHoliday(
+                           year => year >= 1961 && (year - 1961) % 50 == 0,
+                           new FixedHoliday("Anniversary of the Unification of Italy Day (Officially Celebrated)", 3,
+                               17)
+                       ));
             }
         }
 
@@ -91,12 +72,8 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
         {
             get
             {
-                if (saintJosephDay == null)
-                {
-                    saintJosephDay = new YearDependantHoliday(
-                        year => year < 1977, new FixedHoliday("Saint Joseph Day", 3, 19));
-                }
-                return saintJosephDay;
+                return saintJosephDay ?? (saintJosephDay = new YearDependantHoliday(
+                    year => year < 1977, new FixedHoliday("Saint Joseph Day", 3, 19)));
             }
         }
         
@@ -116,21 +93,16 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
         }
 
         //21 April - Rome Birthday - Early XX Century Italian Workers Day, introduced in 1924 and suppressed in 1944, both included
-        private static Holiday earlyXXcenturyWorkersDay;
+        private static Holiday earlyXxCenturyWorkersDay;
 
-        public static Holiday EarlyXXcenturyWorkersDay
+        public static Holiday EarlyXxCenturyWorkersDay
         {
             get
             {
-                if (earlyXXcenturyWorkersDay == null)
-                {
-                    earlyXXcenturyWorkersDay = new YearDependantHoliday(
-                        year => year >= 1924 && year <= 1944,
-                        new FixedHoliday("Early XX Century Italian Workers Day", 4, 21)
-                    );
-                }
-
-                return earlyXXcenturyWorkersDay;
+                return earlyXxCenturyWorkersDay ?? (earlyXxCenturyWorkersDay = new YearDependantHoliday(
+                    year => year >= 1924 && year <= 1944,
+                    new FixedHoliday("Early XX Century Italian Workers Day", 4, 21)
+                ));
             }
         }
         
@@ -141,14 +113,10 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
         {
             get
             {
-                if (lateModernPeriodWorkersDay == null)
-                {
-                    lateModernPeriodWorkersDay = new YearDependantHoliday(
-                        year => year >= 1945,
-                        new FixedHoliday("Italian Workers Day", 5, 1)
-                    );
-                }
-                return lateModernPeriodWorkersDay;
+                return lateModernPeriodWorkersDay ?? (lateModernPeriodWorkersDay = new YearDependantHoliday(
+                    year => year >= 1945,
+                    new FixedHoliday("Italian Workers Day", 5, 1)
+                ));
             }
         }
 
@@ -159,13 +127,9 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
         {
             get
             {
-                if (republicDay == null)
-                {
-                    republicDay = new YearDependantHoliday(
-                        year => year > 1946, new FixedHoliday("Republic Day", 6, 2)
-                    );
-                }
-                return republicDay;
+                return republicDay ?? (republicDay = new YearDependantHoliday(
+                    year => year > 1946, new FixedHoliday("Republic Day", 6, 2)
+                ));
             }
         }
         
@@ -176,13 +140,9 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
         {
             get
             {
-                if (saintPeterAndPaulFeast == null)
-                {
-                    saintPeterAndPaulFeast = new YearDependantHoliday(
-                        year => year < 1977, new FixedHoliday("Saint Peter and Paul Feast", 6, 29)
-                    );
-                }
-                return saintPeterAndPaulFeast;
+                return saintPeterAndPaulFeast ?? (saintPeterAndPaulFeast = new YearDependantHoliday(
+                    year => year < 1977, new FixedHoliday("Saint Peter and Paul Feast", 6, 29)
+                ));
             }
         }
         
@@ -193,14 +153,9 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
         {
             get
             {
-                if (unityAndArmedForcesDay == null)
-                {
-                    unityAndArmedForcesDay = new YearDependantHoliday(
-                        year => year < 1977, new FixedHoliday("Unity and Armed Forces Day", 4, 11)
-                    );
-                }
-
-                return unityAndArmedForcesDay;
+                return unityAndArmedForcesDay ?? (unityAndArmedForcesDay = new YearDependantHoliday(
+                    year => year < 1977, new FixedHoliday("Unity and Armed Forces Day", 4, 11)
+                ));
             }
         }
     }
