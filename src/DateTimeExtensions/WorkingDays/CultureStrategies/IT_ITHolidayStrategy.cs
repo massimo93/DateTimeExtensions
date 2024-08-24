@@ -37,8 +37,10 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
             this.InnerHolidays.Add(AnniversaryOfTheUnificationOfItalyDayOfficiallyCelebrated);
             this.InnerHolidays.Add(SaintJosephDay);
             this.InnerHolidays.Add(LiberationDay);
-            this.InnerHolidays.Add(GlobalHolidays.InternationalWorkersDay);
+            this.InnerHolidays.Add(EarlyXXcenturyWorkersDay);
+            this.InnerHolidays.Add(LateModernPeriodWorkersDay);
             this.InnerHolidays.Add(RepublicDay);
+            this.InnerHolidays.Add(SaintPeterAndPaulFeast);
             this.InnerHolidays.Add(ChristianHolidays.Assumption);
             this.InnerHolidays.Add(ChristianHolidays.AllSaints);
             this.InnerHolidays.Add(ChristianHolidays.ImaculateConception);
@@ -46,7 +48,7 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
             this.InnerHolidays.Add(ChristianHolidays.StStephansDay);
         }
 
-        //17 March - Anniversary of the Unificatio of Italy, officially celebrated every 50 years starting from 1961 (included)
+        //17 March - Anniversary of the Unification of Italy, officially celebrated every 50 years starting from 1961 (included)
         private static Holiday anniversaryOfTheUnificationOfItalyDayOfficiallyCelebrated;
 
         public static Holiday AnniversaryOfTheUnificationOfItalyDayOfficiallyCelebrated
@@ -94,8 +96,43 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
                 return liberationDay;
             }
         }
+
+        //21 April - Rome Birthday - Early XX Century Italian Workers Day, introduced in 1924 and suppressed in 1944, both included
+        private static Holiday earlyXXcenturyWorkersDay;
+
+        public static Holiday EarlyXXcenturyWorkersDay
+        {
+            get
+            {
+                if (earlyXXcenturyWorkersDay == null)
+                {
+                    earlyXXcenturyWorkersDay = new YearDependantHoliday(
+                        year => year >= 1924 && year <= 1944,
+                        new FixedHoliday("Early XX Century Italian Workers Day", 4, 21)
+                    );
+                }
+
+                return earlyXXcenturyWorkersDay;
+            }
+        }
         
-        //TODO: find a way to override the International Workers' Day based on the early XX century Italian country conditions
+        //1 May - Late modern period Italian Workers Day
+        private static Holiday lateModernPeriodWorkersDay;
+
+        public static Holiday LateModernPeriodWorkersDay
+        {
+            get
+            {
+                if (lateModernPeriodWorkersDay == null)
+                {
+                    lateModernPeriodWorkersDay = new YearDependantHoliday(
+                        year => year >= 1945,
+                        new FixedHoliday("Italian Workers Day", 5, 1)
+                    );
+                }
+                return lateModernPeriodWorkersDay;
+            }
+        }
 
         //2 June - Republic Day, since 1946 excluded
         private static Holiday republicDay;
@@ -117,7 +154,7 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
         //29 June - Saint Peter and Paul Feast, until 1977 excluded
         private static Holiday saintPeterAndPaulFeast;
 
-        private static Holiday SaintPeterAndPaulFeast
+        public static Holiday SaintPeterAndPaulFeast
         {
             get
             {
