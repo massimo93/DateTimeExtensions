@@ -33,6 +33,7 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
         {
             this.InnerHolidays.Add(GlobalHolidays.NewYear);
             this.InnerHolidays.Add(new YearDependantHoliday(year => year < 1978 || year > 1984, ChristianHolidays.Epiphany));
+            this.InnerHolidays.Add(ChristianHolidays.Easter);
             this.InnerHolidays.Add(ChristianHolidays.EasterMonday);
             this.InnerHolidays.Add(new YearDependantHoliday(year => year < 1977, ChristianHolidays.CorpusChristi));
             this.InnerHolidays.Add(new YearDependantHoliday(year => year < 1977, ChristianHolidays.Ascension));
