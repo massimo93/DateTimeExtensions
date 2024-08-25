@@ -104,7 +104,7 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
             {
                 return earlyXxCenturyWorkersDay ?? (earlyXxCenturyWorkersDay = new YearDependantHoliday(
                     year => year >= 1924 && year <= 1944,
-                    new FixedHoliday("Early XX Century Italian Workers Day", 4, 21)
+                    new FixedHoliday("Early XX Century Italian Workers' Day", 4, 21)
                 ));
             }
         }
@@ -118,7 +118,7 @@ namespace DateTimeExtensions.WorkingDays.CultureStrategies
             {
                 return lateModernPeriodWorkersDay ?? (lateModernPeriodWorkersDay = new YearDependantHoliday(
                     year => year >= 1945,
-                    new FixedHoliday("Italian Workers Day", 5, 1)
+                    new FixedHoliday("Italian Workers' Day", 5, 1)
                 ));
             }
         }
